@@ -1,0 +1,14 @@
+package service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by chenqiong on 2018/11/8.
+ */
+public interface IStatisticsService {
+    List<Map<String,String>> getAllStudentsScore(HashMap qryMap);
+
+    List<Map<String,String>> getAllStudentsCourse(HashMap qryMap);
+}
