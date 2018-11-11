@@ -6,7 +6,7 @@
 
     <select id="getAllStudentsScore" parameterType="map"   resultType="map">
         select u.id userid,u.nickname nickname,up.truename truename,
-        up.company cengji,up.varcharField4 zhuanye,us.score score,us.year year,
+        up.company cengji,up.varcharField4 zhuanye,up.varcharField3 bingqu,us.score score,us.year year,
         c.id courseId,c.buyable courseType,c.title courseName
         from user u
         left join user_profile up on u.id = up.id
@@ -16,8 +16,9 @@
     </select>
 
     <select id="getAllStudentsCourse" parameterType="map"   resultType="map">
-        select u.id userId,cm.courseId courseId,cm.createdTime createdTime
+        select u.id userId,cm.courseId courseId,cm.createdTime createdTime,c.buyable courseType
         from user u left join course_member cm on u.id = cm.userId
+        left join course c on cm.courseId = c.id
         where 1=1
     </select>
 
