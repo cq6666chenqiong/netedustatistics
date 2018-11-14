@@ -13,6 +13,15 @@
         left join user_score us on up.id = us.userId
         left join course c on us.courseId = c.id
         where 1=1
+        <if test="isMember == 1">
+            and u.id in
+            <foreach collection="userlist" index="index" item="userId" open="(" separator="," close=")">
+                #{userId}
+            </foreach>
+        </if>
+        <if test="islimit == 1">
+            limit #{start},#{plimit}
+        </if>
     </select>
 
     <select id="getAllStudentsCourse" parameterType="map"   resultType="map">
@@ -20,6 +29,24 @@
         from user u left join course_member cm on u.id = cm.userId
         left join course c on cm.courseId = c.id
         where 1=1
+        <if test="isMember == 1">
+            and u.id in
+            <foreach collection="userlist" index="index" item="userId" open="(" separator="," close=")">
+                #{userId}
+            </foreach>
+        </if>
+        <if test="islimit == 1">
+            limit #{start},#{plimit}
+        </if>
+    </select>
+
+    <select id="getUsers" parameterType="map"   resultType="map">
+        select u.id userId
+        left join user_profile up on u.id = up.id
+        where 1=1
+        <if test="islimit == 1">
+            limit #{start},#{plimit}
+        </if>
     </select>
 
 

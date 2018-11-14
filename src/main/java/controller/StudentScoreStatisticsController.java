@@ -1,11 +1,15 @@
 package controller;
 
+import com.alibaba.fastjson.JSON;
 import commons.annotation.DataSourceChange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import service.IAllstatisticsService;
 import service.IStatisticsService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,41 +25,46 @@ public class StudentScoreStatisticsController {
     @Autowired
     public IStatisticsService statisticsService;
 
+    @Autowired
+    public IAllstatisticsService allStatisticsService;
+
     @RequestMapping("getScoreByGrade")
-    public String getScoreByGrade(){
+    @ResponseBody
+    public String getScoreByGrade(HttpServletRequest request){
+        String startStr = request.getParameter("start");
+        String plimitStr = request.getParameter("plimit");
+        Integer start = Integer.valueOf(startStr);
+        Integer plimit = Integer.valueOf(plimitStr);
+        HashMap qryMapUser = new HashMap();
+        qryMapUser.put("start",start);
+        qryMapUser.put("plimit",plimit);
+        qryMapUser.put("islimit",1);
+        List userList = statisticsService.getUsers(qryMapUser);
+        HashMap qryMapUserCourse = new HashMap();
+        qryMapUserCourse.put("userlist",userList);
+        HashMap qryMapUserScore = new HashMap();
+        qryMapUserScore.put("userlist",userList);
+        List result = allStatisticsService.parseMemberScoreWithList(qryMapUserScore, qryMapUserCourse);
+        return JSON.toJSONString(result);
+    }
 
-        HashMap qryscoreMap = new HashMap();
-
-        List<Map<String,String>> menberscorelist = statisticsService.getAllStudentsScore(qryscoreMap);
-        for(int i=0;i<menberscorelist.size();i++){
-            Map<String,String> map = menberscorelist.get(0);
-            String userId = map.get("userid");
-            String nickname =  map.get("nickname");
-            String truename = map.get("truename");
-            String cengji = map.get("cengji");
-            String zhuanye = map.get("zhuanye");
-            String score = map.get("score");
-            String year = map.get("year");
-            String courseId = map.get("courseId");
-            String courseType = map.get("courseType");
-            String courseName = map.get("courseName");
-
-        }
-        HashMap qrycourseMap = new HashMap();
-        List<Map<String,String>> menbercourselist = statisticsService.getAllStudentsCourse(qrycourseMap);
-        for(int i=0;i<menbercourselist.size();i++){
-            Map<String,String> map = menbercourselist.get(0);
-            map.get("");
-            map.get("");
-            map.get("");
-            map.get("");
-            map.get("");
-            map.get("");
-            map.get("");
-            map.get("");
-            map.get("");
-            map.get("");
-        }
-        return "";
+    @RequestMapping("getScoreByBingQu")
+    @ResponseBody
+    public String getScoreByBingQu(HttpServletRequest request){
+        String startStr = request.getParameter("start");
+        String plimitStr = request.getParameter("plimit");
+        Integer start = Integer.valueOf(startStr);
+        Integer plimit = Integer.valueOf(plimitStr);
+        HashMap qryMapUser = new HashMap();
+        qryMapUser.put("start",start);
+        qryMapUser.put("plimit",plimit);
+        qryMapUser.put("islimit",1);
+        List userList = statisticsService.getUsers(qryMapUser);
+        HashMap qryMapUserCourse = new HashMap();
+        qryMapUserCourse.put("userlist",userList);
+        HashMap qryMapUserScore = new HashMap();
+        qryMapUserScore.put("userlist",userList);
+        List result = allStatisticsService.parseMemberScoreByBQWithList(allStatisticsService.parseMemberScore(qryMapUserScore, qryMapUserCourse));
+        return JSON.toJSONString(result);
     }
 }
