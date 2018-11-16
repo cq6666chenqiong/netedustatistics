@@ -32,9 +32,9 @@ public class StudentScoreExcelController {
 
     @RequestMapping("/getScoreByGradeExcel")
     public String getScoreByGradeExcel(HttpServletRequest reques,HttpServletResponse response){
-       /* HashMap qryscoreMap = new HashMap();
+        HashMap qryscoreMap = new HashMap();
         HashMap qrycourseMap = new HashMap();
-        List membersScoreList = allstatisticsService.parseMemberScoreWithList(qryscoreMap,qrycourseMap);*/
+        List membersScoreList = allstatisticsService.parseMemberScoreWithList(qryscoreMap,qrycourseMap);
 
         HSSFWorkbook wb = new HSSFWorkbook();
         HSSFFont font = wb.createFont();
@@ -124,64 +124,37 @@ public class StudentScoreExcelController {
         cell.setCellValue("评定");
         cell.setCellStyle(styleOrange);
 
+        for(int i=0;i<membersScoreList.size();i++){
+            Map userMap = (Map)membersScoreList.get(i);
+            row = sheet.createRow((int) 2);
+            cell = row.createCell((short) 0);
+            cell.setCellValue((String)userMap.get("truename"));
+            cell = row.createCell((short) 1);
+            cell.setCellValue((String)userMap.get("nickname"));
+            cell = row.createCell((short) 2);
+            cell.setCellValue((String)userMap.get("nickname"));
+            cell = row.createCell((short) 3);
+            cell.setCellValue((String)userMap.get("nickname"));
+            cell = row.createCell((short) 4);
+            cell.setCellValue((String)userMap.get("nickname"));
+            cell = row.createCell((short) 5);
+            cell.setCellValue((String)userMap.get("nickname"));
+            cell = row.createCell((short) 6);
+            cell.setCellValue((String)userMap.get("nickname"));
+            cell = row.createCell((short) 7);
+            cell.setCellValue((String)userMap.get("nickname"));
+            cell = row.createCell((short) 8);
+            cell.setCellValue((String)userMap.get("nickname"));
+            cell = row.createCell((short) 9);
+            cell.setCellValue((String)userMap.get("nickname"));
+            cell = row.createCell((short) 10);
+            cell.setCellValue((String)userMap.get("nickname"));
+            cell = row.createCell((short) 11);
+            cell.setCellValue((String)userMap.get("nickname"));
+            cell = row.createCell((short) 12);
+            cell.setCellValue((String)userMap.get("nickname"));
+        }
 
-        row = sheet.createRow((int) 2);
-        cell = row.createCell((short) 0);
-        cell.setCellValue("");
-        cell = row.createCell((short) 1);
-        cell.setCellValue("");
-        cell = row.createCell((short) 2);
-        cell.setCellValue("层级");
-        cell = row.createCell((short) 3);
-        cell.setCellValue("培训次数");
-        cell = row.createCell((short) 4);
-        cell.setCellValue("得分");
-        cell = row.createCell((short) 5);
-        cell.setCellValue("评定");
-        cell = row.createCell((short) 6);
-        cell.setCellValue("专业类型");
-        cell = row.createCell((short) 7);
-        cell.setCellValue("培训次数");
-        cell = row.createCell((short) 8);
-        cell.setCellValue("得分");
-        cell = row.createCell((short) 9);
-        cell.setCellValue("评定");
-        cell = row.createCell((short) 10);
-        cell.setCellValue("合格标准");
-        cell = row.createCell((short) 11);
-        cell.setCellValue("得分");
-        cell = row.createCell((short) 12);
-        cell.setCellValue("评定");
-
-/*
-        row = sheet.createRow((int) 3);
-        cell = row.createCell((short) 0);
-        cell.setCellValue("");
-        cell = row.createCell((short) 1);
-        cell.setCellValue("");
-        cell = row.createCell((short) 2);
-        cell.setCellValue("层级");
-        cell = row.createCell((short) 3);
-        cell.setCellValue("培训次数");
-        cell = row.createCell((short) 4);
-        cell.setCellValue("得分");
-        cell = row.createCell((short) 5);
-        cell.setCellValue("评定");
-        cell = row.createCell((short) 6);
-        cell.setCellValue("专业类型");
-        cell = row.createCell((short) 7);
-        cell.setCellValue("培训次数");
-        cell = row.createCell((short) 8);
-        cell.setCellValue("得分");
-        cell = row.createCell((short) 9);
-        cell.setCellValue("评定");
-        cell = row.createCell((short) 10);
-        cell.setCellValue("合格标准");
-        cell = row.createCell((short) 11);
-        cell.setCellValue("得分");
-        cell = row.createCell((short) 12);
-        cell.setCellValue("评定");
-*/
         OutputStream out = null;
         try {
             out = response.getOutputStream();
