@@ -19,6 +19,8 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
 
     public List parseMemberScoreByBQWithList(Map<String,Object> membersScore){
         Set<String> bingquSet = new HashSet<String>();
+        bingquSet.add("80");
+        bingquSet.add("160");
         List result = new ArrayList();
 
         Iterator<String> itbingqu = bingquSet.iterator();
@@ -199,7 +201,7 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
         //计算员工所得分数
         for(int i=0;i<menberscorelist.size();i++){
 
-            Map<String,String> map = menberscorelist.get(0);
+            Map<String,String> map = menberscorelist.get(i);
             String userId = map.get("userid");       //用户id
             String nickname =  map.get("nickname");  //工号
             String truename = map.get("truename");   //姓名
@@ -207,6 +209,9 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
             String zhuanye = map.get("zhuanye");
             String score = map.get("score");
             String bingqu = map.get("bingqu");
+            if(cengji == null||cengji.equals("")){
+                continue;
+            }
             if(score == null && membersScore.keySet().contains(userId)){
                 continue;
             }else if(score == null && !membersScore.keySet().contains(userId)){
@@ -285,12 +290,16 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
                     user.put("coursIds",courseIds);
                 }
             }else{//
+                if(cengji == null||cengji.equals("")){
+                    continue;
+                }
                 Map user = new HashMap();
                 user.put("userId",userId);
                 user.put("userNo",nickname);
                 user.put("name",truename);
 
                 user.put("cengji",cengji);
+
                 user.put("zhuanye",zhuanye);
 
                 user.put("coursIds",courseId+",");
@@ -344,7 +353,11 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
             Map user = (Map) membersScore.get(userId);
             BigDecimal cjscore = (BigDecimal)membersScore.get("cjscore");
             BigDecimal zyscore = (BigDecimal)membersScore.get("zyscore");
-            BigDecimal zf = cjscore.add(zyscore).setScale(2);
+            BigDecimal zf = new BigDecimal(0);
+            if(zyscore != null){
+                zf = cjscore.add(zyscore).setScale(2);
+            }
+
             if(zf.compareTo(new BigDecimal(13)) >= 0){
                 user.put("hasnopasszf",0);
             }else{
