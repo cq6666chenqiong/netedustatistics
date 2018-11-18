@@ -126,33 +126,45 @@ public class StudentScoreExcelController {
 
         for(int i=0;i<membersScoreList.size();i++){
             Map userMap = (Map)membersScoreList.get(i);
-            row = sheet.createRow((int) 2);
+            row = sheet.createRow((int) i+2);
             cell = row.createCell((short) 0);
-            cell.setCellValue((String)userMap.get("truename"));
+            cell.setCellValue((String)userMap.get("name"));
             cell = row.createCell((short) 1);
-            cell.setCellValue((String)userMap.get("nickname"));
+            cell.setCellValue((String)userMap.get("userNo"));
             cell = row.createCell((short) 2);
-            cell.setCellValue((String)userMap.get("nickname"));
+            cell.setCellValue((String)userMap.get("cengji"));
             cell = row.createCell((short) 3);
-            cell.setCellValue((String)userMap.get("nickname"));
+            cell.setCellValue(userMap.get("cjcoursenum")==null?"0":(userMap.get("cjcoursenum")+""));  //培训次数
             cell = row.createCell((short) 4);
-            cell.setCellValue((String)userMap.get("nickname"));
+            cell.setCellValue((userMap.get("cjscore")+""));
             cell = row.createCell((short) 5);
-            cell.setCellValue((String)userMap.get("nickname"));
+            if(((userMap.get("hasnopasscj")+"")).equals("0")){
+                cell.setCellValue("通过");  //评定
+            }else{
+                cell.setCellValue("未通过");  //评定
+            }
             cell = row.createCell((short) 6);
-            cell.setCellValue((String)userMap.get("nickname"));
+            cell.setCellValue((String)userMap.get("zhuanye"));
             cell = row.createCell((short) 7);
-            cell.setCellValue((String)userMap.get("nickname"));
+            cell.setCellValue(userMap.get("zycoursenum")==null?"0":(userMap.get("zycoursenum")+""));  //培训次数
             cell = row.createCell((short) 8);
-            cell.setCellValue((String)userMap.get("nickname"));
+            cell.setCellValue((userMap.get("zyscore")+""));
             cell = row.createCell((short) 9);
-            cell.setCellValue((String)userMap.get("nickname"));
+            if(((userMap.get("hasnopasszy")+"")).equals("0")){
+                cell.setCellValue("通过");  //评定
+            }else{
+                cell.setCellValue("未通过");  //评定
+            }
             cell = row.createCell((short) 10);
-            cell.setCellValue((String)userMap.get("nickname"));
+            cell.setCellValue("大于13分");
             cell = row.createCell((short) 11);
-            cell.setCellValue((String)userMap.get("nickname"));
+            cell.setCellValue(new BigDecimal(userMap.get("cjscore")+"").add(new BigDecimal(userMap.get("zyscore") + "")).setScale(2) + "");
             cell = row.createCell((short) 12);
-            cell.setCellValue((String)userMap.get("nickname"));
+            if((userMap.get("hasnopasszf")+"").equals("0")&&(userMap.get("hasnopasszy")+"").equals("0")&&(userMap.get("hasnopasscj")+"").equals("0")){
+                cell.setCellValue("通过");  //评定
+            }else{
+                cell.setCellValue("未通过");  //评定
+            }
         }
 
         OutputStream out = null;
@@ -210,44 +222,43 @@ public class StudentScoreExcelController {
         cell = row.createCell((short) 0);
         cell.setCellValue("病区");
         cell.setCellStyle(styleOrange);
-        row = sheet.createRow((int) 1);
-        cell = row.createCell((short) 0);
+        cell = row.createCell((short) 1);
         cell.setCellValue("N1");
         cell.setCellStyle(styleOrange);
-        cell = row.createCell((short) 1);
+        cell = row.createCell((short) 2);
         cell.setCellValue("N2");
         cell.setCellStyle(styleOrange);
-        cell = row.createCell((short) 2);
+        cell = row.createCell((short) 3);
         cell.setCellValue("N3");
         cell.setCellStyle(styleOrange);
-        cell = row.createCell((short) 3);
+        cell = row.createCell((short) 4);
         cell.setCellValue("N4");
         cell.setCellStyle(styleOrange);
-        cell = row.createCell((short) 4);
+        cell = row.createCell((short) 5);
         cell.setCellValue("总分合格率");
         cell.setCellStyle(styleOrange);
-        cell = row.createCell((short) 5);
+        cell = row.createCell((short) 6);
         cell.setCellValue("康复小组");
         cell.setCellStyle(styleOrange);
-        cell = row.createCell((short) 6);
+        cell = row.createCell((short) 7);
         cell.setCellValue("糖尿病小组");
         cell.setCellStyle(styleOrange);
-        cell = row.createCell((short) 7);
+        cell = row.createCell((short) 8);
         cell.setCellValue("静脉小组");
         cell.setCellStyle(styleOrange);
-        cell = row.createCell((short) 8);
+        cell = row.createCell((short) 9);
         cell.setCellValue("肿瘤小组");
         cell.setCellStyle(styleOrange);
-        cell = row.createCell((short) 9);
+        cell = row.createCell((short) 10);
         cell.setCellValue("危重小组");
         cell.setCellStyle(styleOrange);
-        cell = row.createCell((short) 10);
+        cell = row.createCell((short) 11);
         cell.setCellValue("营养小组");
         cell.setCellStyle(styleOrange);
-        cell = row.createCell((short) 11);
+        cell = row.createCell((short) 12);
         cell.setCellValue("应急小组");
         cell.setCellStyle(styleOrange);
-        cell = row.createCell((short) 12);
+        cell = row.createCell((short) 13);
         cell.setCellValue("专业组合格率");
         cell.setCellStyle(styleOrange);
 
@@ -257,33 +268,44 @@ public class StudentScoreExcelController {
             cell = row.createCell((short) 0);
             cell.setCellValue((String)map.get("bingqu"));
             cell = row.createCell((short) 1);
-            cell.setCellValue((String)map.get("bingqu"));
-            cell = row.createCell((short) 2);
             cell.setCellValue((Integer)map.get("n1num")+"/"+(Integer)map.get("zn1num"));
-            cell = row.createCell((short) 3);
+            cell = row.createCell((short) 2);
             cell.setCellValue((Integer)map.get("n2num")+"/"+(Integer)map.get("zn2num"));
-            cell = row.createCell((short) 4);
+            cell = row.createCell((short) 3);
             cell.setCellValue((Integer)map.get("n3num")+"/"+(Integer)map.get("zn3num"));
-            cell = row.createCell((short) 5);
+            cell = row.createCell((short) 4);
             cell.setCellValue((Integer)map.get("n4num")+"/"+(Integer)map.get("zn4num"));
+            cell = row.createCell((short) 5);
+            int cjp = (Integer)map.get("n1num") + (Integer)map.get("n2num") + (Integer)map.get("n3num") + (Integer)map.get("n4num");
+            int cj = (Integer)map.get("zn1num") + (Integer)map.get("zn2num") + (Integer)map.get("zn3num") + (Integer)map.get("zn4num");
+            if(cj == 0){
+                cell.setCellValue(0);
+            }else{
+                cell.setCellValue(BigDecimal.valueOf(cjp).divide(BigDecimal.valueOf(cj)).setScale(2) + "");
+            }
             cell = row.createCell((short) 6);
-            cell.setCellValue("总分合格率");
-            cell = row.createCell((short) 7);
             cell.setCellValue((Integer)map.get("kfnum")+"/"+(Integer)map.get("zkfnum"));
-            cell = row.createCell((short) 8);
+            cell = row.createCell((short) 7);
             cell.setCellValue((Integer)map.get("tnbnum")+"/"+(Integer)map.get("ztnbnum"));
-            cell = row.createCell((short) 9);
+            cell = row.createCell((short) 8);
             cell.setCellValue((Integer)map.get("jmnum")+"/"+(Integer)map.get("zjmnum"));
-            cell = row.createCell((short) 10);
+            cell = row.createCell((short) 9);
             cell.setCellValue((Integer)map.get("zlnum")+"/"+(Integer)map.get("zzlnum"));
-            cell = row.createCell((short) 11);
+            cell = row.createCell((short) 10);
             cell.setCellValue((Integer)map.get("yynum")+"/"+(Integer)map.get("zyynum"));
-            cell = row.createCell((short) 12);
+            cell = row.createCell((short) 11);
             cell.setCellValue((Integer)map.get("wznum")+"/"+(Integer)map.get("zwznum"));
-            cell = row.createCell((short) 13);
+            cell = row.createCell((short) 12);
             cell.setCellValue((Integer)map.get("yjnum")+"/"+(Integer)map.get("yjnum"));
-            cell = row.createCell((short) 14);
-            cell.setCellValue("专业组合格率");
+            cell = row.createCell((short) 13);
+            int znp = (Integer)map.get("n1num") + (Integer)map.get("n2num") + (Integer)map.get("n3num") + (Integer)map.get("n4num");
+            int zn = (Integer)map.get("zn1num") + (Integer)map.get("zn2num") + (Integer)map.get("zn3num") + (Integer)map.get("zn4num");
+            cell = row.createCell((short) 5);
+            if(zn == 0){
+                cell.setCellValue(0);
+            }else{
+                cell.setCellValue(BigDecimal.valueOf(znp).divide(BigDecimal.valueOf(zn)).setScale(2) + "");
+            }
 
         }
 

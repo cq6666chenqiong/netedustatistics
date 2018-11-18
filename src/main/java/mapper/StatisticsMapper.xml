@@ -41,7 +41,7 @@
     </select>
 
     <select id="getUsers" parameterType="map"   resultType="map">
-        select concat(u.id,'') userId
+        select concat(u.id,'') userId from user u
         left join user_profile up on u.id = up.id
         where 1=1
         <if test="islimit == 1">
