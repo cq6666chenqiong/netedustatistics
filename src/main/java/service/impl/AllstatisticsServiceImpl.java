@@ -19,8 +19,10 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
 
     public List parseMemberScoreByBQWithList(Map<String,Object> membersScore){
         Set<String> bingquSet = new HashSet<String>();
-        bingquSet.add("80");
-        bingquSet.add("160");
+        List<Map> list = statisticsService.getDistinctBingqu();
+        for(int i=0;i<list.size();i++){
+            bingquSet.add(list.get(i).get("bingqu") == null ? "" : (String)list.get(i).get("bingqu"));
+        }
         List result = new ArrayList();
 
         Iterator<String> itbingqu = bingquSet.iterator();
@@ -209,6 +211,9 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
             String zhuanye = map.get("zhuanye");
             String score = map.get("score");
             String bingqu = map.get("bingqu");
+            String courseType = map.get("courseType");
+            String acourseType = map.get("acourseType") == null ? "-1" : map.get("acourseType");
+
             if(cengji == null||cengji.equals("")){
                 continue;
             }
@@ -241,19 +246,22 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
 
             String courseId = map.get("courseId");
 
-            String courseType = map.get("courseType");
+
             String courseName = map.get("courseName");
             BigDecimal scorefen = new BigDecimal(score);
 
-            if(membersScore.keySet().contains(userId)){//
+            if(membersScore.keySet().contains(userId)){//已记录用户
                 Map user = (Map)membersScore.get(userId);
                 String courseIds = (String)user.get("coursIds");
+                if(courseId == null){
+                    courseId = "";
+                }
                 if(courseIds.contains(courseId)){
                     if(courseType == null){
                         BigDecimal zs = (BigDecimal)user.get("zyscore");
                         zs = zs.add(scorefen).setScale(2);
                         user.put("zyscore",zs);
-                    }else if(Integer.valueOf(cengji) == Integer.valueOf(courseType)){
+                    }else if(Integer.valueOf(cengji) == Integer.valueOf(courseType)||acourseType.equals("0")){
                         BigDecimal zs = (BigDecimal)user.get("cjscore");
                         zs = zs.add(scorefen).setScale(2);
                         user.put("cjscore",zs);
@@ -272,7 +280,7 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
                         zs = zs.add(scorefen).setScale(2);
                         user.put("zyscore",zs);
                         user.put("zycoursenum",num);
-                    }else if(Integer.valueOf(cengji) == Integer.valueOf(courseType)){
+                    }else if(Integer.valueOf(cengji) == Integer.valueOf(courseType)||acourseType.equals("0")){
                         int num = (Integer)user.get("cjcoursenum");
                         num = num + 1;
                         BigDecimal zs = (BigDecimal)user.get("cjscore");
@@ -289,7 +297,7 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
                     }
                     user.put("coursIds",courseIds);
                 }
-            }else{//
+            }else{//没用记录用户
                 if(cengji == null||cengji.equals("")){
                     continue;
                 }
@@ -314,7 +322,7 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
                     user.put("cjcoursenum",0);
                     user.put("zyscore",scorefen);
                     user.put("zycoursenum",1);
-                }else if(Integer.valueOf(cengji) == Integer.valueOf(courseType)){
+                }else if(Integer.valueOf(cengji) == Integer.valueOf(courseType)||acourseType.equals("0")){
                     user.put("cjscore",scorefen);
                     user.put("cjcoursenum",1);
                     user.put("zyscore",0);

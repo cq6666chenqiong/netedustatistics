@@ -13,4 +13,6 @@ public interface IStatisticsService {
     List<Map<String,String>> getAllStudentsCourse(HashMap qryMap);
 
     List<Map<String,String>> getUsers(HashMap qryMap);
+
+    List<Map> getDistinctBingqu();
 }

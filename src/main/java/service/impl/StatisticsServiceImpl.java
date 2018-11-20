@@ -34,6 +34,11 @@ public class StatisticsServiceImpl implements IStatisticsService {
     public List<Map<String, String>> getUsers(HashMap qryMap) {
         return statisticsMapper.getUsers(qryMap);
     }
+
+    @Override
+    public List<Map> getDistinctBingqu() {
+        return statisticsMapper.getDistinctBingqu();
+    }
 /*
 @Override
 @DataSourceChange(slave = false)
