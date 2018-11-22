@@ -7,7 +7,7 @@
     <select id="getAllStudentsScore" parameterType="map"   resultType="map">
         select concat(u.id,'')  userid,u.nickname nickname,up.truename truename,
         up.company cengji,up.varcharField4 zhuanye,up.varcharField3 bingqu,concat(us.score,'') score,us.year year,
-        concat(c.id,'') courseId,concat(c.buyable,'') courseType,concat(us.courseType,'') acourseType,c.title courseName
+        concat(c.id,'') courseId,concat(us.courseId,'') scourseId,concat(c.buyable,'') courseType,concat(us.courseType,'') acourseType,c.title courseName
         from user u
         left join user_profile up on u.id = up.id
         left join user_score us on up.id = us.userId

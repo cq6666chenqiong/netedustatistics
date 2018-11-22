@@ -189,6 +189,7 @@ public class StudentScoreExcelController {
 
     @RequestMapping("getScoreByBingQuExcel")
     public String getScoreByBingQuExcel(HttpServletRequest reques,HttpServletResponse response){
+
         HashMap qryscoreMap = new HashMap();
         HashMap qrycourseMap = new HashMap();
         List membersScoreList = allstatisticsService.parseMemberScoreByBQWithList(allstatisticsService.parseMemberScore(qryscoreMap, qrycourseMap));

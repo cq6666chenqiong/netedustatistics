@@ -8,7 +8,7 @@ import java.util.Map;
  * Created by chenqiong on 2018/11/8.
  */
 public interface StatisticsMapper {
-    
+
 
     List<Map<String,String>> getAllStudentsScore(HashMap qryMap);
 

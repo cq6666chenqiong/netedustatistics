@@ -213,6 +213,7 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
             String bingqu = map.get("bingqu");
             String courseType = map.get("courseType");
             String acourseType = map.get("acourseType") == null ? "-1" : map.get("acourseType");
+            String scourseId = map.get("scourseId");
 
             if(cengji == null||cengji.equals("")){
                 continue;
@@ -256,47 +257,68 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
                 if(courseId == null){
                     courseId = "";
                 }
-                if(courseIds.contains(courseId)){
-                    if(courseType == null){
-                        BigDecimal zs = (BigDecimal)user.get("zyscore");
-                        zs = zs.add(scorefen).setScale(2);
-                        user.put("zyscore",zs);
-                    }else if(Integer.valueOf(cengji) == Integer.valueOf(courseType)||acourseType.equals("0")){
-                        BigDecimal zs = (BigDecimal)user.get("cjscore");
-                        zs = zs.add(scorefen).setScale(2);
-                        user.put("cjscore",zs);
-                    }else{
-                        BigDecimal zs = (BigDecimal)user.get("zyscore");
-                        zs = zs.add(scorefen).setScale(2);
-                        user.put("zyscore",zs);
-                    }
-                    user.put("coursIds",courseIds);
-                }else{
-                    courseIds = courseIds + courseId + ",";
-                    if(courseType == null){
-                        int num = (Integer)user.get("zycoursenum");
-                        num = num + 1;
-                        BigDecimal zs = (BigDecimal)user.get("zyscore");
-                        zs = zs.add(scorefen).setScale(2);
-                        user.put("zyscore",zs);
-                        user.put("zycoursenum",num);
-                    }else if(Integer.valueOf(cengji) == Integer.valueOf(courseType)||acourseType.equals("0")){
+
+                if(scourseId.equals("-1")){//excel录入的成绩
+                    if(acourseType.equals("0")){
                         int num = (Integer)user.get("cjcoursenum");
                         num = num + 1;
-                        BigDecimal zs = (BigDecimal)user.get("cjscore");
+                        BigDecimal zs = new BigDecimal(user.get("cjscore") + "");
                         zs = zs.add(scorefen).setScale(2);
                         user.put("cjscore",zs);
                         user.put("cjcoursenum",num);
                     }else{
                         int num = (Integer)user.get("zycoursenum");
                         num = num + 1;
-                        BigDecimal zs = (BigDecimal)user.get("zyscore");
+                        BigDecimal zs = new BigDecimal(user.get("zyscore")+"");
                         zs = zs.add(scorefen).setScale(2);
                         user.put("zyscore",zs);
                         user.put("zycoursenum",num);
                     }
-                    user.put("coursIds",courseIds);
+                }else{//在平台考试取得的成绩
+                    if(courseIds.contains(courseId)){
+                        if(courseType == null){
+                            BigDecimal zs = new BigDecimal(user.get("zyscore") + "");
+                            zs = zs.add(scorefen).setScale(2);
+                            user.put("zyscore",zs);
+                        }else if(Integer.valueOf(cengji) == Integer.valueOf(courseType)){
+                            BigDecimal zs = new BigDecimal(user.get("cjscore") + "");
+                            zs = zs.add(scorefen).setScale(2);
+                            user.put("cjscore",zs);
+                        }else{
+                            BigDecimal zs = new BigDecimal(user.get("zyscore") + "");
+                            zs = zs.add(scorefen).setScale(2);
+                            user.put("zyscore",zs);
+                        }
+                        user.put("coursIds",courseIds);
+                    }else{
+                        courseIds = courseIds + courseId + ",";
+                        if(courseType == null){
+                            int num = (Integer)user.get("zycoursenum");
+                            num = num + 1;
+                            BigDecimal zs = new BigDecimal(user.get("zyscore") + "");
+                            zs = zs.add(scorefen).setScale(2);
+                            user.put("zyscore",zs);
+                            user.put("zycoursenum",num);
+                        }else if(Integer.valueOf(cengji) == Integer.valueOf(courseType)){
+                            int num = (Integer)user.get("cjcoursenum");
+                            num = num + 1;
+                            BigDecimal zs = new BigDecimal(user.get("cjscore") + "");
+                            zs = zs.add(scorefen).setScale(2);
+                            user.put("cjscore",zs);
+                            user.put("cjcoursenum",num);
+                        }else{
+                            int num = (Integer)user.get("zycoursenum");
+                            num = num + 1;
+                            BigDecimal zs = new BigDecimal(user.get("zyscore") + "");
+                            zs = zs.add(scorefen).setScale(2);
+                            user.put("zyscore",zs);
+                            user.put("zycoursenum",num);
+                        }
+                        user.put("coursIds",courseIds);
+                    }
                 }
+
+
             }else{//没用记录用户
                 if(cengji == null||cengji.equals("")){
                     continue;
@@ -316,23 +338,45 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
                 user.put("hasnopasszy",0);
 
                 Map<String,Integer> scoreMap = new HashMap<String,Integer>();
+                user.put("cjscore",new BigDecimal(0));
+                user.put("cjcoursenum",0);
+                user.put("zyscore",scorefen);
+                user.put("zycoursenum",1);
 
-                if(courseType == null){
-                    user.put("cjscore",new BigDecimal(0));
-                    user.put("cjcoursenum",0);
-                    user.put("zyscore",scorefen);
-                    user.put("zycoursenum",1);
-                }else if(Integer.valueOf(cengji) == Integer.valueOf(courseType)||acourseType.equals("0")){
-                    user.put("cjscore",scorefen);
-                    user.put("cjcoursenum",1);
-                    user.put("zyscore",0);
-                    user.put("zycoursenum",0);
+
+
+                if(scourseId.equals("-1")){
+                    System.out.println("===================================================-1");
+                    if(acourseType.equals("0")){
+                        user.put("cjscore",scorefen);
+                        user.put("cjcoursenum",1);
+                        user.put("zyscore",0);
+                        user.put("zycoursenum",0);
+                    }else{
+                        user.put("cjscore",new BigDecimal(0));
+                        user.put("cjcoursenum",0);
+                        user.put("zyscore",scorefen);
+                        user.put("zycoursenum",1);
+                    }
                 }else{
-                    user.put("cjscore",new BigDecimal(0));
-                    user.put("cjcoursenum",0);
-                    user.put("zyscore",scorefen);
-                    user.put("zycoursenum",1);
+                    if(courseType == null){
+                        user.put("cjscore",new BigDecimal(0));
+                        user.put("cjcoursenum",0);
+                        user.put("zyscore",scorefen);
+                        user.put("zycoursenum",1);
+                    }else if(Integer.valueOf(cengji) == Integer.valueOf(courseType)){
+                        user.put("cjscore",scorefen);
+                        user.put("cjcoursenum",1);
+                        user.put("zyscore",0);
+                        user.put("zycoursenum",0);
+                    }else{
+                        user.put("cjscore",new BigDecimal(0));
+                        user.put("cjcoursenum",0);
+                        user.put("zyscore",scorefen);
+                        user.put("zycoursenum",1);
+                    }
                 }
+
                 membersScore.put(userId,user);
             }
 
@@ -344,10 +388,12 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
             Map<String,String> map = menbercourselist.get(0);
             String userId = map.get("userId");
             String courseId = map.get("courseId");
+            if(courseId == null) continue;
             String createdTime = map.get("createdTime");
             String courseType = map.get("courseType");
             Map user = (Map)membersScore.get(userId);
-            if(!((String)user.get("coursIds")).contains(courseId)){
+            String coursIds = user.get("coursIds") == null ? "---" :  (String)user.get("coursIds");
+            if(!coursIds.contains(courseId)){
                 if(Integer.valueOf(courseType)<=4){
                     user.put("hasnopasscj",1);
                 }else{
@@ -359,18 +405,17 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
         while(it.hasNext()){
             String userId = it.next();
             Map user = (Map) membersScore.get(userId);
-            BigDecimal cjscore = (BigDecimal)membersScore.get("cjscore");
-            BigDecimal zyscore = (BigDecimal)membersScore.get("zyscore");
+            BigDecimal cjscore = new BigDecimal(user.get("cjscore")+"");
+            BigDecimal zyscore =new BigDecimal(user.get("zyscore")+"");
             BigDecimal zf = new BigDecimal(0);
-            if(zyscore != null){
-                zf = cjscore.add(zyscore).setScale(2);
-            }
-
+            zf = cjscore.add(zyscore).setScale(2);
+            user.put("zongfen",zf);
             if(zf.compareTo(new BigDecimal(13)) >= 0){
                 user.put("hasnopasszf",0);
             }else{
                 user.put("hasnopasszf",1);
             }
+           // System.out.println(user.get("userNo")+"===="+user.get("coursIds"));
         }
         return membersScore;
     }
