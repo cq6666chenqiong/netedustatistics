@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com</groupId>
-	<artifactId>SpringMVC-MultipleSources</artifactId>
+	<artifactId>netedustatistics</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringMVC-MultipleSources Maven Webapp</name>
+	<name>netedustatistics Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
 	<!-- 版本号设置 -->
@@ -148,11 +148,6 @@
 			<version>${slf4j.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
 
 		<!-- 添加mybatis支持 -->
 		<dependency>
@@ -214,7 +209,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>SpringMVC-MultipleSources</finalName>
+		<finalName>netedustatistics</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>

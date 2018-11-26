@@ -12,9 +12,9 @@ master_driver=
 #slave_username=root
 #slave_password=
 #slave_driver=
-slave_driverUrl=jdbc:mysql://39.108.165.250:3306/myBanana?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
-slave_username=root
-slave_password=123456
-slave_driver=
+master_driverUrl=jdbc:mysql://39.108.165.250:3306/myBanana?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+master_username=root
+master_password=123456
+master_driver=
 
 #oracle.jdbc.driver.OracleDriver

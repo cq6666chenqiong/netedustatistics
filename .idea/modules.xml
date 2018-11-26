@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SpringMVC-MultipleSources.iml" filepath="$PROJECT_DIR$/SpringMVC-MultipleSources.iml" />
+      <module fileurl="file://$PROJECT_DIR$/netedustatistics.iml" filepath="$PROJECT_DIR$/netedustatistics.iml" />
     </modules>
   </component>
 </project>

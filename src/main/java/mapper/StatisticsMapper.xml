@@ -13,10 +13,13 @@
         left join user_score us on up.id = us.userId
         left join course c on us.courseId = c.id
         where 1=1
+        <if test="year != null and year != '' ">
+            and us.year = #{year}
+        </if>
         <if test="isMember == 1">
             and u.id in
-            <foreach collection="userlist" index="index" item="userId" open="(" separator="," close=")">
-                #{userId}
+            <foreach collection="userlist" index="index" item="user" open="(" separator="," close=")">
+                #{user.userId}
             </foreach>
         </if>
         <if test="islimit == 1">
@@ -27,14 +30,23 @@
     <select id="getAllStudentsCourse" parameterType="map"   resultType="map">
         select concat(u.id,'') userId,concat(cm.courseId,'') courseId,concat(cm.createdTime,'') createdTime,concat(c.buyable,'') courseType
         from user u left join course_member cm on u.id = cm.userId
+        left join user_profile up on u.id = up.id
         left join course c on cm.courseId = c.id
         where 1=1
+       <!-- <if test="year != null and year != '' ">
+            and us.year = #{year}
+        </if>-->
+        <![CDATA[
+            and cm.createdTime >= #{startTime}
+            and cm.createdTime <= #{endTime}
+        ]]>
         <if test="isMember == 1">
             and u.id in
-            <foreach collection="userlist" index="index" item="userId" open="(" separator="," close=")">
-                #{userId}
+            <foreach collection="userlist" index="index" item="user" open="(" separator="," close=")">
+                #{user.userId}
             </foreach>
         </if>
+
         <if test="islimit == 1">
             limit #{start},#{plimit}
         </if>
@@ -44,6 +56,12 @@
         select concat(u.id,'') userId from user u
         left join user_profile up on u.id = up.id
         where 1=1
+        <if test="name != null and name != '' ">
+            and up.truename = #{name}
+        </if>
+        <if test="cengji != null and cengji != '' ">
+            and up.company = #{cengji}
+        </if>
         <if test="islimit == 1">
             limit #{start},#{plimit}
         </if>

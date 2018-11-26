@@ -23,11 +23,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="SpringMVC-MultipleSources" />
+        <module name="netedustatistics" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="SpringMVC-MultipleSources" target="1.8" />
+      <module name="netedustatistics" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

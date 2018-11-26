@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="netedustatistics:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="netedustatistics.war">
+      <element id="artifact" artifact-name="netedustatistics:war exploded" />
+    </root>
+  </artifact>
+</component>

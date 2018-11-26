@@ -17,6 +17,189 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
     @Autowired
     public IStatisticsService statisticsService;
 
+    public List parseMemberScoreByBQList(List list){
+        List result = new ArrayList();
+
+        Integer n1num = 0;
+        Integer zn1num = 0;
+        Integer n2num = 0;
+        Integer zn2num = 0;
+        Integer n3num = 0;
+        Integer zn3num = 0;
+        Integer n4num = 0;
+        Integer zn4num = 0;
+        Integer kfnum = 0;
+        Integer zkfnum = 0;
+        Integer tnbnum = 0;
+        Integer ztnbnum = 0;
+        Integer jmnum = 0;
+        Integer zjmnum = 0;
+        Integer zlnum = 0;
+        Integer zzlnum = 0;
+        Integer yynum = 0;
+        Integer zyynum = 0;
+        Integer wznum = 0;
+        Integer zwznum = 0;
+        Integer yjnum = 0;
+        Integer zyjnum = 0;
+
+        for(int i=0;i<list.size();i++){
+            Map map = (Map) list.get(i);
+            Map smap = new HashMap();
+            smap.put("bingqu",(String)map.get("bingqu"));
+
+            smap.put("n1",(Integer)map.get("n1num")+"/"+(Integer)map.get("zn1num"));
+            n1num = n1num + (Integer)map.get("n1num");
+            zn1num = zn1num + (Integer)map.get("zn1num");
+
+            smap.put("n2", (Integer) map.get("n2num") + "/" + (Integer) map.get("zn2num"));
+            n2num = n2num + (Integer)map.get("n2num");
+            zn2num = zn2num + (Integer)map.get("zn2num");
+
+            smap.put("n3", (Integer) map.get("n3num") + "/" + (Integer) map.get("zn3num"));
+            n3num = n3num + (Integer)map.get("n3num");
+            zn3num = zn3num + (Integer)map.get("zn3num");
+
+            smap.put("n4", (Integer) map.get("n4num") + "/" + (Integer) map.get("zn4num"));
+            n4num = n4num + (Integer)map.get("n4num");
+            zn4num = zn4num + (Integer)map.get("zn4num");
+
+            int cjp = (Integer)map.get("n1num") + (Integer)map.get("n2num") + (Integer)map.get("n3num") + (Integer)map.get("n4num");
+            int cj = (Integer)map.get("zn1num") + (Integer)map.get("zn2num") + (Integer)map.get("zn3num") + (Integer)map.get("zn4num");
+            if(cj == 0){
+                smap.put("zn", "0%");
+            }else{
+                smap.put("zn", BigDecimal.valueOf(cjp).divide(BigDecimal.valueOf(cj)).setScale(2) + "");
+            }
+
+            smap.put("kf", (Integer) map.get("kfnum") + "/" + (Integer) map.get("zkfnum"));
+            kfnum = kfnum + (Integer)map.get("kfnum");
+            zkfnum = zkfnum + (Integer)map.get("zkfnum");
+
+            smap.put("tnb", (Integer) map.get("tnbnum") + "/" + (Integer) map.get("ztnbnum"));
+            tnbnum = tnbnum + (Integer)map.get("tnbnum");
+            ztnbnum = ztnbnum + (Integer)map.get("ztnbnum");
+
+            smap.put("jm", (Integer) map.get("jmnum") + "/" + (Integer) map.get("zjmnum"));
+            jmnum = jmnum + (Integer)map.get("jmnum");
+            zjmnum = zjmnum + (Integer)map.get("zjmnum");
+
+            smap.put("zl", (Integer) map.get("zlnum") + "/" + (Integer) map.get("zzlnum"));
+            zlnum = zlnum + (Integer)map.get("zlnum");
+            zzlnum = zzlnum + (Integer)map.get("zzlnum");
+
+            smap.put("yy", (Integer) map.get("yynum") + "/" + (Integer) map.get("zyynum"));
+            yynum = yynum + (Integer)map.get("yynum");
+            zyynum = zyynum + (Integer)map.get("zyynum");
+
+            smap.put("wz", (Integer) map.get("wznum") + "/" + (Integer) map.get("zwznum"));
+            wznum = wznum + (Integer)map.get("wznum");
+            zwznum = zwznum + (Integer)map.get("zwznum");
+
+            smap.put("yj", (Integer) map.get("yjnum") + "/" + (Integer) map.get("zyjnum"));
+            yjnum = yjnum + (Integer)map.get("yjnum");
+            zyjnum = zyjnum + (Integer)map.get("zyjnum");
+
+            int znp = (Integer)map.get("kfnum") + (Integer)map.get("tnbnum") + (Integer)map.get("jmnum") + (Integer)map.get("zlnum") + (Integer)map.get("yynum") + (Integer)map.get("wznum") + (Integer)map.get("yjnum");
+            int zn = (Integer)map.get("zkfnum") + (Integer)map.get("ztnbnum") + (Integer)map.get("zjmnum") + (Integer)map.get("zzlnum") + (Integer)map.get("zyynum") + (Integer)map.get("zwznum") + (Integer)map.get("zyjnum");
+            if(zn == 0){
+                smap.put("zz","0%");
+            }else{
+                smap.put("zz",BigDecimal.valueOf(znp).divide(BigDecimal.valueOf(zn)).setScale(2) + "%");
+            }
+
+            result.add(smap);
+        }
+
+
+        Map smap = new HashMap();
+        smap.put("bingqu","合计");
+
+        if(zn1num == 0){
+            smap.put("n1", "0%");
+        }else{
+            smap.put("n1", BigDecimal.valueOf(n1num).divide(BigDecimal.valueOf(zn1num)).setScale(2) + "%");
+        }
+
+        if(n2num == 0){
+            smap.put("n2", "0%");
+        }else{
+            smap.put("n2", BigDecimal.valueOf(n2num).divide(BigDecimal.valueOf(zn2num)).setScale(2) + "%");
+        }
+
+        if(n3num == 0){
+            smap.put("n3", "0%");
+        }else{
+            smap.put("n3", BigDecimal.valueOf(n3num).divide(BigDecimal.valueOf(zn3num)).setScale(2) + "%");
+        }
+
+        if(n4num == 0){
+            smap.put("n4", "0%");
+        }else{
+            smap.put("n4", BigDecimal.valueOf(n4num).divide(BigDecimal.valueOf(zn4num)).setScale(2) + "%");
+        }
+
+        int cjp = n1num + n2num + n3num + n4num;
+        int cj = zn1num + zn2num + zn3num + zn4num;
+        if(cj == 0){
+            smap.put("zn", "0%");
+        }else{
+            smap.put("zn", BigDecimal.valueOf(cjp).divide(BigDecimal.valueOf(cj)).setScale(2) + "%");
+        }
+
+        if(kfnum == 0){
+            smap.put("kf", "0%");
+        }else{
+            smap.put("kf", BigDecimal.valueOf(kfnum).divide(BigDecimal.valueOf(zkfnum)).setScale(2) + "%");
+        }
+
+        if(tnbnum == 0){
+            smap.put("tnb", "0%");
+        }else{
+            smap.put("tnb", BigDecimal.valueOf(tnbnum).divide(BigDecimal.valueOf(ztnbnum)).setScale(2) + "%");
+        }
+
+        if(jmnum == 0){
+            smap.put("jm", "0%");
+        }else{
+            smap.put("jm", BigDecimal.valueOf(jmnum).divide(BigDecimal.valueOf(zjmnum)).setScale(2) + "%");
+        }
+
+        if(zlnum == 0){
+            smap.put("zl", "0%");
+        }else{
+            smap.put("zl", BigDecimal.valueOf(zlnum).divide(BigDecimal.valueOf(zzlnum)).setScale(2) + "%");
+        }
+
+        if(yynum == 0){
+            smap.put("yy", "0%");
+        }else{
+            smap.put("yy", BigDecimal.valueOf(yynum).divide(BigDecimal.valueOf(zyynum)).setScale(2) + "%");
+        }
+
+        if(wznum == 0){
+            smap.put("wz", "0%");
+        }else{
+            smap.put("wz", BigDecimal.valueOf(wznum).divide(BigDecimal.valueOf(zwznum)).setScale(2) + "%");
+        }
+
+        if(yjnum == 0){
+            smap.put("yj", "0%");
+        }else{
+            smap.put("yj", BigDecimal.valueOf(yjnum).divide(BigDecimal.valueOf(zyjnum)).setScale(2) + "%");
+        }
+
+        int znp = kfnum + tnbnum + jmnum + zlnum + yynum + wznum + yjnum;
+        int zn = zkfnum + ztnbnum + zjmnum + zzlnum + zyynum + zwznum + zyjnum;
+        if(zn == 0){
+            smap.put("zz", "0%");
+        }else{
+            smap.put("zz", BigDecimal.valueOf(znp).divide(BigDecimal.valueOf(zn)).setScale(2) + "%");
+        }
+
+        return result;
+    }
+
     public List parseMemberScoreByBQWithList(Map<String,Object> membersScore){
         Set<String> bingquSet = new HashSet<String>();
         List<Map> list = statisticsService.getDistinctBingqu();
@@ -214,7 +397,6 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
             String courseType = map.get("courseType");
             String acourseType = map.get("acourseType") == null ? "-1" : map.get("acourseType");
             String scourseId = map.get("scourseId");
-
             if(cengji == null||cengji.equals("")){
                 continue;
             }
@@ -234,6 +416,7 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
 
                 user.put("hasnopasscj",0);
                 user.put("hasnopasszy",0);
+
 
                 user.put("cjscore",new BigDecimal(0));
                 user.put("cjcoursenum",0);

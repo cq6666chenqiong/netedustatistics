@@ -9,12 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import service.IAllstatisticsService;
 import service.IStatisticsService;
+import util.DateUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by chenqiong on 2018/11/8.
@@ -33,21 +32,50 @@ public class StudentScoreStatisticsController {
     @RequestMapping(value = "getScoreByGrade",produces="text/html;charset=UTF-8;")
     @ResponseBody
     public String getScoreByGrade(HttpServletRequest request,HttpServletResponse response){
+        String year = request.getParameter("year");
+        String name = request.getParameter("name");
+        String cengji = request.getParameter("cengji");
+
+
+        String startTime = null;
+        String endTime = null;
+        if(year == null || year.equals("")){
+            Calendar cal = Calendar.getInstance();
+            String y = cal.get(Calendar.YEAR) + "";
+            System.out.println("year="+y);
+            startTime = DateUtil.date2TimeStamp(y + "-01-01 00:00:00", "yyyy-MM-dd HH:mm:ss");
+            endTime = DateUtil.date2TimeStamp(y + "-01-01 00:00:00","yyyy-MM-dd HH:mm:ss");
+        }else{
+            startTime = DateUtil.date2TimeStamp(year + "-01-01 00:00:00","yyyy-MM-dd HH:mm:ss");
+            endTime = DateUtil.date2TimeStamp(year + "-01-01 00:00:00","yyyy-MM-dd HH:mm:ss");
+        }
+
         String startStr = request.getParameter("start");
         String plimitStr = request.getParameter("plimit");
         Integer start = Integer.valueOf(startStr);
         Integer plimit = Integer.valueOf(plimitStr);
         HashMap qryMapUser = new HashMap();
-        qryMapUser.put("start",start);
+        qryMapUser.put("start",(start-1)*plimit);
         qryMapUser.put("plimit",plimit);
         qryMapUser.put("islimit",1);
+        qryMapUser.put("name",name);
+        qryMapUser.put("cengji",cengji);
         List userList = statisticsService.getUsers(qryMapUser);
         HashMap qryMapUserCourse = new HashMap();
+        qryMapUserCourse.put("isMember",1);
         qryMapUserCourse.put("userlist",userList);
+        qryMapUserCourse.put("name",name);
+        qryMapUserCourse.put("startTime",startTime);
+        qryMapUserCourse.put("endTime",endTime);
+        qryMapUserCourse.put("cengji",cengji);
         HashMap qryMapUserScore = new HashMap();
+        qryMapUserScore.put("isMember",1);
         qryMapUserScore.put("userlist",userList);
+        qryMapUserCourse.put("year",year);
+        qryMapUserCourse.put("name",name);
+        qryMapUserCourse.put("cengji",cengji);
         List result = allStatisticsService.parseMemberScoreWithList(qryMapUserScore, qryMapUserCourse);
-        response.setHeader("Transfer-Encoding","chunked");
+        //response.setHeader("Transfer-Encoding","chunked");
         response.setCharacterEncoding("utf-8");
         response.setHeader("contentType", "text/html; charset=utf-8");
         response.setContentType("text/html;charset=utf-8");
@@ -76,19 +104,8 @@ public class StudentScoreStatisticsController {
     @RequestMapping(value = "getScoreByBingQu",produces="text/html;charset=UTF-8;")
     @ResponseBody
     public String getScoreByBingQu(HttpServletRequest request,HttpServletResponse response){
-       /* String startStr = request.getParameter("start");
-        String plimitStr = request.getParameter("plimit");
-        Integer start = Integer.valueOf(startStr);
-        Integer plimit = Integer.valueOf(plimitStr);*/
-        HashMap qryMapUser = new HashMap();
-        /*qryMapUser.put("start",start);
-        qryMapUser.put("plimit",plimit);*/
-        /*qryMapUser.put("islimit",0);
-        List userList = statisticsService.getUsers(qryMapUser);*/
         HashMap qryMapUserCourse = new HashMap();
-        /*qryMapUserCourse.put("userlist",userList);*/
         HashMap qryMapUserScore = new HashMap();
-        /*qryMapUserScore.put("userlist",userList);*/
         List result = allStatisticsService.parseMemberScoreByBQWithList(allStatisticsService.parseMemberScore(qryMapUserScore, qryMapUserCourse));
         response.setHeader("Transfer-Encoding","chunked");
         response.setCharacterEncoding("utf-8");
