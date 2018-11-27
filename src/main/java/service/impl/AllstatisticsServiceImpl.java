@@ -67,9 +67,9 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
             int cjp = (Integer)map.get("n1num") + (Integer)map.get("n2num") + (Integer)map.get("n3num") + (Integer)map.get("n4num");
             int cj = (Integer)map.get("zn1num") + (Integer)map.get("zn2num") + (Integer)map.get("zn3num") + (Integer)map.get("zn4num");
             if(cj == 0){
-                smap.put("zn", "0%");
+                smap.put("zn", "0.0000%");
             }else{
-                smap.put("zn", BigDecimal.valueOf(cjp).divide(BigDecimal.valueOf(cj)).setScale(2) + "");
+                smap.put("zn", BigDecimal.valueOf(cjp).divide(BigDecimal.valueOf(cj),4, BigDecimal.ROUND_HALF_UP) + "");
             }
 
             smap.put("kf", (Integer) map.get("kfnum") + "/" + (Integer) map.get("zkfnum"));
@@ -103,9 +103,9 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
             int znp = (Integer)map.get("kfnum") + (Integer)map.get("tnbnum") + (Integer)map.get("jmnum") + (Integer)map.get("zlnum") + (Integer)map.get("yynum") + (Integer)map.get("wznum") + (Integer)map.get("yjnum");
             int zn = (Integer)map.get("zkfnum") + (Integer)map.get("ztnbnum") + (Integer)map.get("zjmnum") + (Integer)map.get("zzlnum") + (Integer)map.get("zyynum") + (Integer)map.get("zwznum") + (Integer)map.get("zyjnum");
             if(zn == 0){
-                smap.put("zz","0%");
+                smap.put("zz","0.0000%");
             }else{
-                smap.put("zz",BigDecimal.valueOf(znp).divide(BigDecimal.valueOf(zn)).setScale(2) + "%");
+                smap.put("zz",BigDecimal.valueOf(znp).divide(BigDecimal.valueOf(zn), 4, BigDecimal.ROUND_HALF_UP) + "%");
             }
 
             result.add(smap);
@@ -116,86 +116,89 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
         smap.put("bingqu","合计");
 
         if(zn1num == 0){
-            smap.put("n1", "0%");
+            smap.put("n1", "0.0000%");
         }else{
-            smap.put("n1", BigDecimal.valueOf(n1num).divide(BigDecimal.valueOf(zn1num)).setScale(2) + "%");
+            System.out.println(n1num + "======" + zn1num);
+            smap.put("n1", BigDecimal.valueOf(n1num).divide(BigDecimal.valueOf(zn1num), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
 
         if(n2num == 0){
-            smap.put("n2", "0%");
+            smap.put("n2", "0.0000%");
         }else{
-            smap.put("n2", BigDecimal.valueOf(n2num).divide(BigDecimal.valueOf(zn2num)).setScale(2) + "%");
+            smap.put("n2", BigDecimal.valueOf(n2num).divide(BigDecimal.valueOf(zn2num), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
 
         if(n3num == 0){
-            smap.put("n3", "0%");
+            smap.put("n3", "0.0000%");
         }else{
-            smap.put("n3", BigDecimal.valueOf(n3num).divide(BigDecimal.valueOf(zn3num)).setScale(2) + "%");
+            smap.put("n3", BigDecimal.valueOf(n3num).divide(BigDecimal.valueOf(zn3num), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
 
         if(n4num == 0){
-            smap.put("n4", "0%");
+            smap.put("n4", "0.0000%");
         }else{
-            smap.put("n4", BigDecimal.valueOf(n4num).divide(BigDecimal.valueOf(zn4num)).setScale(2) + "%");
+            smap.put("n4", BigDecimal.valueOf(n4num).divide(BigDecimal.valueOf(zn4num), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
 
         int cjp = n1num + n2num + n3num + n4num;
         int cj = zn1num + zn2num + zn3num + zn4num;
         if(cj == 0){
-            smap.put("zn", "0%");
+            smap.put("zn", "0.0000%");
         }else{
-            smap.put("zn", BigDecimal.valueOf(cjp).divide(BigDecimal.valueOf(cj)).setScale(2) + "%");
+            smap.put("zn", BigDecimal.valueOf(cjp).divide(BigDecimal.valueOf(cj), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
 
         if(kfnum == 0){
-            smap.put("kf", "0%");
+            smap.put("kf", "0.0000%");
         }else{
-            smap.put("kf", BigDecimal.valueOf(kfnum).divide(BigDecimal.valueOf(zkfnum)).setScale(2) + "%");
+            smap.put("kf", BigDecimal.valueOf(kfnum).divide(BigDecimal.valueOf(zkfnum), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
 
         if(tnbnum == 0){
-            smap.put("tnb", "0%");
+            smap.put("tnb", "0.0000%");
         }else{
-            smap.put("tnb", BigDecimal.valueOf(tnbnum).divide(BigDecimal.valueOf(ztnbnum)).setScale(2) + "%");
+            smap.put("tnb", BigDecimal.valueOf(tnbnum).divide(BigDecimal.valueOf(ztnbnum), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
 
         if(jmnum == 0){
-            smap.put("jm", "0%");
+            smap.put("jm", "0.0000%");
         }else{
-            smap.put("jm", BigDecimal.valueOf(jmnum).divide(BigDecimal.valueOf(zjmnum)).setScale(2) + "%");
+            smap.put("jm", BigDecimal.valueOf(jmnum).divide(BigDecimal.valueOf(zjmnum), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
 
         if(zlnum == 0){
-            smap.put("zl", "0%");
+            smap.put("zl", "0.0000%");
         }else{
-            smap.put("zl", BigDecimal.valueOf(zlnum).divide(BigDecimal.valueOf(zzlnum)).setScale(2) + "%");
+            smap.put("zl", BigDecimal.valueOf(zlnum).divide(BigDecimal.valueOf(zzlnum), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
 
         if(yynum == 0){
-            smap.put("yy", "0%");
+            smap.put("yy", "0.0000%");
         }else{
-            smap.put("yy", BigDecimal.valueOf(yynum).divide(BigDecimal.valueOf(zyynum)).setScale(2) + "%");
+            smap.put("yy", BigDecimal.valueOf(yynum).divide(BigDecimal.valueOf(zyynum), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
 
         if(wznum == 0){
-            smap.put("wz", "0%");
+            smap.put("wz", "0.0000%");
         }else{
-            smap.put("wz", BigDecimal.valueOf(wznum).divide(BigDecimal.valueOf(zwznum)).setScale(2) + "%");
+            smap.put("wz", BigDecimal.valueOf(wznum).divide(BigDecimal.valueOf(zwznum), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
 
         if(yjnum == 0){
-            smap.put("yj", "0%");
+            smap.put("yj", "0.0000%");
         }else{
-            smap.put("yj", BigDecimal.valueOf(yjnum).divide(BigDecimal.valueOf(zyjnum)).setScale(2) + "%");
+            smap.put("yj", BigDecimal.valueOf(yjnum).divide(BigDecimal.valueOf(zyjnum), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
 
         int znp = kfnum + tnbnum + jmnum + zlnum + yynum + wznum + yjnum;
         int zn = zkfnum + ztnbnum + zjmnum + zzlnum + zyynum + zwznum + zyjnum;
         if(zn == 0){
-            smap.put("zz", "0%");
+            smap.put("zz", "0.0000%");
         }else{
-            smap.put("zz", BigDecimal.valueOf(znp).divide(BigDecimal.valueOf(zn)).setScale(2) + "%");
+            smap.put("zz", BigDecimal.valueOf(znp).divide(BigDecimal.valueOf(zn), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
+
+        result.add(smap);
 
         return result;
     }
@@ -209,7 +212,7 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
         List result = new ArrayList();
 
         Iterator<String> itbingqu = bingquSet.iterator();
-        Iterator<String> it = membersScore.keySet().iterator();
+
         while(itbingqu.hasNext()) {
             String bingqu = itbingqu.next();
             int n1num = 0;
@@ -263,7 +266,7 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
             bingquMap.put("zwznum",zwznum);
             bingquMap.put("zyjnum",zyjnum);
 
-
+            Iterator<String> it = membersScore.keySet().iterator();
             while (it.hasNext()) {
                 String userId = it.next();
                 Map user = (Map) membersScore.get(userId);
@@ -273,41 +276,41 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
                 if (!bingqu.equals(userbingqu)) {
                     continue;
                 }
+                //System.out.println("user=="+cengji+"=="+user.get("hasnopasszf")+"==="+user.get("hasnopasszy")+"===="+user.get("hasnopasscj"));
                 if (cengji.equals("1")) {
                     bingquMap.put("zn1num", (Integer) bingquMap.get("zn1num") + 1);
-                    if (user.get("hasnopasscj").equals("0")) {
+                    if((user.get("hasnopasszf")+"").equals("0")&&(user.get("hasnopasszy")+"").equals("0")&&(user.get("hasnopasscj")+"").equals("0")){
                         bingquMap.put("n1num", (Integer) bingquMap.get("n1num") + 1);
                     }
                 }
                 if (cengji.equals("2")) {
                     bingquMap.put("zn2num", (Integer) bingquMap.get("zn2num") + 1);
-                    if (user.get("hasnopasscj").equals("0")) {
+                    if((user.get("hasnopasszf")+"").equals("0")&&(user.get("hasnopasszy")+"").equals("0")&&(user.get("hasnopasscj")+"").equals("0")){
                         bingquMap.put("n2num", (Integer) bingquMap.get("n2num") + 1);
                     }
                 }
                 if (cengji.equals("3")) {
                     bingquMap.put("zn3num", (Integer) bingquMap.get("zn3num") + 1);
-                    if (user.get("hasnopasscj").equals("0")) {
+                    if((user.get("hasnopasszf")+"").equals("0")&&(user.get("hasnopasszy")+"").equals("0")&&(user.get("hasnopasscj")+"").equals("0")){
                         bingquMap.put("n3num", (Integer) bingquMap.get("n3num") + 1);
                     }
                 }
                 if (cengji.equals("4")) {
                     bingquMap.put("zn4num", (Integer) bingquMap.get("zn4num") + 1);
-
-                    if (user.get("hasnopasscj").equals("0")) {
+                    if((user.get("hasnopasszf")+"").equals("0")&&(user.get("hasnopasszy")+"").equals("0")&&(user.get("hasnopasscj")+"").equals("0")){
                         bingquMap.put("n4num", (Integer) bingquMap.get("n4num") + 1);
                     }
                 }
 
                 if (zhuanye.equals("康复小组")) {
                     bingquMap.put("zkfnum", (Integer) bingquMap.get("zkfnum") + 1);
-                    if (user.get("hasnopasszy").equals("0")) {
+                    if((user.get("hasnopasszf")+"").equals("0")&&(user.get("hasnopasszy")+"").equals("0")&&(user.get("hasnopasscj")+"").equals("0")){
                         bingquMap.put("kfnum", (Integer) bingquMap.get("kfnum") + 1);
                     }
                 }
                 if (zhuanye.equals("糖尿病课程")) {
                     bingquMap.put("ztnbnum", (Integer) bingquMap.get("ztnbnum") + 1);
-                    if (user.get("hasnopasszy").equals("0")) {
+                    if((user.get("hasnopasszf")+"").equals("0")&&(user.get("hasnopasszy")+"").equals("0")&&(user.get("hasnopasscj")+"").equals("0")){
                         bingquMap.put("tnbnum", (Integer) bingquMap.get("tnbnum") + 1);
                     }
                 }
@@ -319,25 +322,25 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
                 }
                 if (zhuanye.equals("肿瘤课程")) {
                     bingquMap.put("zzlnum", (Integer) bingquMap.get("zzlnum") + 1);
-                    if (user.get("hasnopasszy").equals("0")) {
+                    if((user.get("hasnopasszf")+"").equals("0")&&(user.get("hasnopasszy")+"").equals("0")&&(user.get("hasnopasscj")+"").equals("0")){
                         bingquMap.put("zlnum", (Integer) bingquMap.get("zlnum") + 1);
                     }
                 }
                 if (zhuanye.equals("营养课程")) {
                     bingquMap.put("zyynum", (Integer) bingquMap.get("zyynum") + 1);
-                    if (user.get("hasnopasszy").equals("0")) {
+                    if((user.get("hasnopasszf")+"").equals("0")&&(user.get("hasnopasszy")+"").equals("0")&&(user.get("hasnopasscj")+"").equals("0")){
                         bingquMap.put("yynum", (Integer) bingquMap.get("yynum") + 1);
                     }
                 }
                 if (zhuanye.equals("危重小组")) {
                     bingquMap.put("zwznum", (Integer) bingquMap.get("zwznum") + 1);
-                    if (user.get("hasnopasszy").equals("0")) {
+                    if((user.get("hasnopasszf")+"").equals("0")&&(user.get("hasnopasszy")+"").equals("0")&&(user.get("hasnopasscj")+"").equals("0")){
                         bingquMap.put("wznum", (Integer) bingquMap.get("wznum") + 1);
                     }
                 }
                 if (zhuanye.equals("应急小组")) {
                     bingquMap.put("zyjnum", (Integer) bingquMap.get("zyjnum") + 1);
-                    if (user.get("hasnopasszy").equals("0")) {
+                    if((user.get("hasnopasszf")+"").equals("0")&&(user.get("hasnopasszy")+"").equals("0")&&(user.get("hasnopasscj")+"").equals("0")){
                         bingquMap.put("yjnum", (Integer) bingquMap.get("yjnum") + 1);
                     }
                 }
@@ -529,7 +532,6 @@ public class AllstatisticsServiceImpl implements IAllstatisticsService {
 
 
                 if(scourseId.equals("-1")){
-                    System.out.println("===================================================-1");
                     if(acourseType.equals("0")){
                         user.put("cjscore",scorefen);
                         user.put("cjcoursenum",1);

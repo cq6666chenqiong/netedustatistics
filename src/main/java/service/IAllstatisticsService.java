@@ -9,6 +9,8 @@ import java.util.Map;
  */
 public interface IAllstatisticsService {
 
+    List parseMemberScoreByBQList(List list);
+
     List parseMemberScoreByBQWithList(Map<String,Object> membersScore);
 
     List parseMemberScoreWithList(HashMap qryscoreMap, HashMap qrycourseMap);

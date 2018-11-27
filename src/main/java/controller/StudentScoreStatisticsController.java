@@ -75,7 +75,7 @@ public class StudentScoreStatisticsController {
         qryMapUserCourse.put("name",name);
         qryMapUserCourse.put("cengji",cengji);
         List result = allStatisticsService.parseMemberScoreWithList(qryMapUserScore, qryMapUserCourse);
-        //response.setHeader("Transfer-Encoding","chunked");
+        response.setHeader("Transfer-Encoding","chunked");
         response.setCharacterEncoding("utf-8");
         response.setHeader("contentType", "text/html; charset=utf-8");
         response.setContentType("text/html;charset=utf-8");
@@ -106,8 +106,9 @@ public class StudentScoreStatisticsController {
     public String getScoreByBingQu(HttpServletRequest request,HttpServletResponse response){
         HashMap qryMapUserCourse = new HashMap();
         HashMap qryMapUserScore = new HashMap();
-        List result = allStatisticsService.parseMemberScoreByBQWithList(allStatisticsService.parseMemberScore(qryMapUserScore, qryMapUserCourse));
-        response.setHeader("Transfer-Encoding","chunked");
+        List list = allStatisticsService.parseMemberScoreByBQWithList(allStatisticsService.parseMemberScore(qryMapUserScore, qryMapUserCourse));
+        List result = allStatisticsService.parseMemberScoreByBQList(list);
+        //response.setHeader("Transfer-Encoding","chunked");
         response.setCharacterEncoding("utf-8");
         response.setHeader("contentType", "text/html; charset=utf-8");
         response.setContentType("text/html;charset=utf-8");

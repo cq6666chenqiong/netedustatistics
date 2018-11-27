@@ -68,7 +68,7 @@
     </select>
 
     <select id="getDistinctBingqu" parameterType="map"   resultType="map">
-        select distinct varcharField4 as bingqu  from user_profile
+        select distinct varcharField3 as bingqu  from user_profile
     </select>
 
 

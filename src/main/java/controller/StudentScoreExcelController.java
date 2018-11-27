@@ -360,9 +360,9 @@ public class StudentScoreExcelController {
             int cjp = (Integer)map.get("n1num") + (Integer)map.get("n2num") + (Integer)map.get("n3num") + (Integer)map.get("n4num");
             int cj = (Integer)map.get("zn1num") + (Integer)map.get("zn2num") + (Integer)map.get("zn3num") + (Integer)map.get("zn4num");
             if(cj == 0){
-                cell.setCellValue(0);
+                cell.setCellValue("0.0000%");
             }else{
-                cell.setCellValue(BigDecimal.valueOf(cjp).divide(BigDecimal.valueOf(cj)).setScale(2) + "");
+                cell.setCellValue(BigDecimal.valueOf(cjp).divide(BigDecimal.valueOf(cj), 4, BigDecimal.ROUND_HALF_UP) + "%");
             }
             cell = row.createCell((short) 6);
             cell.setCellValue((Integer)map.get("kfnum")+"/"+(Integer)map.get("zkfnum"));
@@ -395,11 +395,10 @@ public class StudentScoreExcelController {
             cell = row.createCell((short) 13);
             int znp = (Integer)map.get("kfnum") + (Integer)map.get("tnbnum") + (Integer)map.get("jmnum") + (Integer)map.get("zlnum") + (Integer)map.get("yynum") + (Integer)map.get("wznum") + (Integer)map.get("yjnum");
             int zn = (Integer)map.get("zkfnum") + (Integer)map.get("ztnbnum") + (Integer)map.get("zjmnum") + (Integer)map.get("zzlnum") + (Integer)map.get("zyynum") + (Integer)map.get("zwznum") + (Integer)map.get("zyjnum");
-            cell = row.createCell((short) 14);
             if(zn == 0){
-                cell.setCellValue(0);
+                cell.setCellValue("0.0000%");
             }else{
-                cell.setCellValue(BigDecimal.valueOf(znp).divide(BigDecimal.valueOf(zn)).setScale(2) + "");
+                cell.setCellValue(BigDecimal.valueOf(znp).divide(BigDecimal.valueOf(zn), 4, BigDecimal.ROUND_HALF_UP) + "%");
             }
 
         }
@@ -410,86 +409,85 @@ public class StudentScoreExcelController {
         cell.setCellValue("合计");
         cell = row.createCell((short) 1);
         if(zn1num == 0){
-            cell.setCellValue("0%");
+            cell.setCellValue("0.0000%");
         }else{
-            cell.setCellValue(BigDecimal.valueOf(n1num).divide(BigDecimal.valueOf(zn1num)).setScale(2) + "%");
+            cell.setCellValue(BigDecimal.valueOf(n1num).divide(BigDecimal.valueOf(zn1num), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
         cell = row.createCell((short) 2);
         if(n2num == 0){
-            cell.setCellValue("0%");
+            cell.setCellValue("0.0000%");
         }else{
-            cell.setCellValue(BigDecimal.valueOf(n2num).divide(BigDecimal.valueOf(zn2num)).setScale(2) + "%");
+            cell.setCellValue(BigDecimal.valueOf(n2num).divide(BigDecimal.valueOf(zn2num), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
         cell = row.createCell((short) 3);
         if(n3num == 0){
-            cell.setCellValue("0%");
+            cell.setCellValue("0.0000%");
         }else{
-            cell.setCellValue(BigDecimal.valueOf(n3num).divide(BigDecimal.valueOf(zn3num)).setScale(2) + "%");
+            cell.setCellValue(BigDecimal.valueOf(n3num).divide(BigDecimal.valueOf(zn3num), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
         cell = row.createCell((short) 4);
         if(n4num == 0){
-            cell.setCellValue("0%");
+            cell.setCellValue("0.0000%");
         }else{
-            cell.setCellValue(BigDecimal.valueOf(n4num).divide(BigDecimal.valueOf(zn4num)).setScale(2) + "%");
+            cell.setCellValue(BigDecimal.valueOf(n4num).divide(BigDecimal.valueOf(zn4num), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
         cell = row.createCell((short) 5);
         int cjp = n1num + n2num + n3num + n4num;
         int cj = zn1num + zn2num + zn3num + zn4num;
         if(cj == 0){
-            cell.setCellValue(0);
+            cell.setCellValue("0.0000%");
         }else{
-            cell.setCellValue(BigDecimal.valueOf(cjp).divide(BigDecimal.valueOf(cj)).setScale(2) + "%");
+            cell.setCellValue(BigDecimal.valueOf(cjp).divide(BigDecimal.valueOf(cj), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
         cell = row.createCell((short) 6);
         if(kfnum == 0){
-            cell.setCellValue(0);
+            cell.setCellValue("0.0000%");
         }else{
-            cell.setCellValue(BigDecimal.valueOf(kfnum).divide(BigDecimal.valueOf(zkfnum)).setScale(2) + "%");
+            cell.setCellValue(BigDecimal.valueOf(kfnum).divide(BigDecimal.valueOf(zkfnum), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
         cell = row.createCell((short) 7);
         if(tnbnum == 0){
-            cell.setCellValue(0);
+            cell.setCellValue("0.0000%");
         }else{
-            cell.setCellValue(BigDecimal.valueOf(tnbnum).divide(BigDecimal.valueOf(ztnbnum)).setScale(2) + "%");
+            cell.setCellValue(BigDecimal.valueOf(tnbnum).divide(BigDecimal.valueOf(ztnbnum), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
         cell = row.createCell((short) 8);
         if(jmnum == 0){
-            cell.setCellValue(0);
+            cell.setCellValue("0.0000%");
         }else{
-            cell.setCellValue(BigDecimal.valueOf(jmnum).divide(BigDecimal.valueOf(zjmnum)).setScale(2) + "%");
+            cell.setCellValue(BigDecimal.valueOf(jmnum).divide(BigDecimal.valueOf(zjmnum), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
         cell = row.createCell((short) 9);
         if(zlnum == 0){
-            cell.setCellValue(0);
+            cell.setCellValue("0.0000%");
         }else{
-            cell.setCellValue(BigDecimal.valueOf(zlnum).divide(BigDecimal.valueOf(zzlnum)).setScale(2) + "%");
+            cell.setCellValue(BigDecimal.valueOf(zlnum).divide(BigDecimal.valueOf(zzlnum), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
         cell = row.createCell((short) 10);
         if(yynum == 0){
-            cell.setCellValue(0);
+            cell.setCellValue("0.0000%");
         }else{
-            cell.setCellValue(BigDecimal.valueOf(yynum).divide(BigDecimal.valueOf(zyynum)).setScale(2) + "%");
+            cell.setCellValue(BigDecimal.valueOf(yynum).divide(BigDecimal.valueOf(zyynum), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
         cell = row.createCell((short) 11);
         if(wznum == 0){
-            cell.setCellValue(0);
+            cell.setCellValue("0.0000%");
         }else{
-            cell.setCellValue(BigDecimal.valueOf(wznum).divide(BigDecimal.valueOf(zwznum)).setScale(2) + "%");
+            cell.setCellValue(BigDecimal.valueOf(wznum).divide(BigDecimal.valueOf(zwznum), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
         cell = row.createCell((short) 12);
         if(yjnum == 0){
-            cell.setCellValue(0);
+            cell.setCellValue("0.0000%");
         }else{
-            cell.setCellValue(BigDecimal.valueOf(yjnum).divide(BigDecimal.valueOf(zyjnum)).setScale(2) + "%");
+            cell.setCellValue(BigDecimal.valueOf(yjnum).divide(BigDecimal.valueOf(zyjnum), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
         cell = row.createCell((short) 13);
         int znp = kfnum + tnbnum + jmnum + zlnum + yynum + wznum + yjnum;
         int zn = zkfnum + ztnbnum + zjmnum + zzlnum + zyynum + zwznum + zyjnum;
-        cell = row.createCell((short) 14);
         if(zn == 0){
-            cell.setCellValue(0);
+            cell.setCellValue("0.0000%");
         }else{
-            cell.setCellValue(BigDecimal.valueOf(znp).divide(BigDecimal.valueOf(zn)).setScale(2) + "%");
+            cell.setCellValue(BigDecimal.valueOf(znp).divide(BigDecimal.valueOf(zn), 4, BigDecimal.ROUND_HALF_UP) + "%");
         }
 
         OutputStream out = null;
